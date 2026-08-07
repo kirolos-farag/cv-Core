@@ -1,0 +1,231 @@
+/* ===== منطقة الكانفاس والصفحات ===== */
+.canvas-area {
+    flex: 1;
+    padding: 30px 24px;
+    overflow-y: auto;
+    background: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#cv-canvas {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.cv-page {
+    width: 100%;
+    min-height: 950px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    padding: 44px;
+    position: relative;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    outline: 3px solid transparent;
+    overflow: hidden;
+}
+
+.cv-page.selected-page {
+    outline: 3px solid #e94560;
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.25);
+}
+
+/* الشريط الملون المقتطع في خلفية الصفحة (Side/Top Split Color Band) */
+.page-split-band {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 33%;
+    background: rgba(233, 69, 96, 0.08);
+    pointer-events: none;
+    z-index: 0;
+    transition: all 0.2s;
+}
+
+.page-split-band.pos-left {
+    right: auto;
+    left: 0;
+}
+
+.page-split-band.pos-top {
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: 180px;
+    width: 100%;
+}
+
+.page-split-band.band-w-25 { width: 25%; }
+.page-split-band.band-w-33 { width: 33%; }
+.page-split-band.band-w-50 { width: 50%; }
+
+
+/* جسم الصفحة المرن للهياكل المختلفة */
+.page-body {
+    width: 100%;
+    min-height: 860px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 0;
+    position: relative;
+}
+
+/* التخطيطات المحترفة للهيكل (Single / Two-Column / Banner) */
+#cv-canvas.layout-two-column .page-body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+}
+
+#cv-canvas.layout-two-column .page-body::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    right: 252px;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+#cv-canvas.layout-header-banner .page-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cv-page.drag-over {
+    border: 3px dashed #e94560;
+    background: #fff5f7;
+}
+
+.page-number-badge {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    z-index: 10;
+}
+
+.page-remove-btn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    background: #dc3545;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.page-remove-btn:hover {
+    background: #b02a37;
+    transform: scale(1.05);
+}
+
+.page-controls {
+    margin-top: 24px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.btn-add-page {
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+    color: #ffffff;
+    border: 2px dashed #e94560;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(15, 52, 96, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add-page:hover {
+    background: #e94560;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.35);
+}
+
+.empty-state {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.empty-state svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #64748b;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* ===== وضع المعاينة والطباعة ===== */
+.preview-mode .cv-page { box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important; }
+.preview-mode .cv-element-wrapper { border-color: transparent !important; background: transparent !important; }
+.preview-mode .cv-element-wrapper:hover { border-color: transparent !important; }
+
+.preview-mode .element-actions,
+.preview-mode .page-number-badge,
+.preview-mode .page-remove-btn,
+.preview-mode .page-controls {
+    display: none !important;
+}
+
+.preview-mode .cv-element { cursor: default !important; }
+
+/* قواعد الطباعة لـ PDF */
+@media print {
+    body { background: #fff !important; padding: 0 !important; overflow: visible !important; }
+    .sidebar, .toolbar, .properties-panel, .page-controls, .page-number-badge, .page-remove-btn, .element-actions {
+        display: none !important;
+    }
+    .workspace, .canvas-area {
+        padding: 0 !important; background: #fff !important; overflow: visible !important; display: block !important;
+    }
+    #cv-canvas { max-width: 100% !important; gap: 0 !important; }
+    .cv-page {
+        box-shadow: none !important; border-radius: 0 !important; padding: 40px !important;
+        page-break-after: always !important; min-height: 100vh !important;
+    }
+}

@@ -1,0 +1,225 @@
+/* ===== لوحة الخصائص المتقدمة ===== */
+.properties-panel {
+    width: 320px;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    padding: 20px 16px;
+    overflow-y: auto;
+    flex-shrink: 0;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.properties-panel h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e94560;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.prop-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+    background: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin: 14px 0 10px 0;
+    border-right: 3px solid #e94560;
+    letter-spacing: 0.5px;
+}
+
+.prop-group {
+    margin-bottom: 14px;
+}
+
+.prop-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #475569;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.prop-group label span.prop-val-badge {
+    background: #1e293b;
+    color: #38bdf8;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: monospace;
+}
+
+.prop-group input[type="text"],
+.prop-group textarea,
+.prop-group select {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    background: #fff;
+    color: #1e293b;
+}
+
+.prop-group select {
+    cursor: pointer;
+}
+
+.prop-group input:focus,
+.prop-group textarea:focus,
+.prop-group select:focus {
+    outline: none;
+    border-color: #e94560;
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.15);
+}
+
+/* مؤشرات السحب Tweak Sliders */
+.prop-slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.prop-slider-wrapper input[type="range"] {
+    flex: 1;
+    accent-color: #e94560;
+    cursor: pointer;
+    height: 6px;
+}
+
+/* عجلة ومربعات اختيار الألوان السريعة Swatches */
+.color-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-picker-row input[type="color"] {
+    width: 44px;
+    height: 38px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 2px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.color-swatches-grid {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.color-swatch-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.15s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch-btn:hover {
+    transform: scale(1.2);
+    z-index: 2;
+}
+
+.transparent-btn {
+    background: repeating-conic-gradient(#cbd5e1 0% 25%, #ffffff 0% 50%) 50% / 10px 10px;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    font-size: 10px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.prop-file-upload-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #f1f5f9;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+}
+
+.prop-file-upload-btn:hover {
+    background: #e2e8f0;
+    border-color: #e94560;
+    color: #e94560;
+}
+
+.prop-row {
+    display: flex;
+    gap: 8px;
+}
+
+.prop-row .prop-group {
+    flex: 1;
+}
+
+.toggle-btn {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.toggle-btn.active {
+    background: #e94560;
+    color: #fff;
+    border-color: #e94560;
+}
+
+.toggle-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+button[data-grad] {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Layout Rules */
+@media (max-width: 1200px) {
+    .properties-panel {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .cv-page {
+        padding: 24px;
+        min-height: auto;
+    }
+}

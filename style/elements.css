@@ -1,0 +1,133 @@
+/* ===== العناصر والتأطير المرن (Flex Width & Alignments) ===== */
+.cv-element-wrapper {
+    position: relative;
+    margin-bottom: 8px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: border-color 0.2s, background-color 0.2s, width 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.cv-element-wrapper.w-100 { width: 100%; }
+.cv-element-wrapper.w-50 { width: 49%; display: inline-block; }
+.cv-element-wrapper.w-33 { width: 32.5%; display: inline-block; }
+.cv-element-wrapper.w-25 { width: 24%; display: inline-block; }
+
+.cv-element-wrapper:hover {
+    border-color: rgba(233, 69, 96, 0.5);
+}
+
+.cv-element-wrapper.selected {
+    border-color: #e94560;
+    background: rgba(233, 69, 96, 0.04);
+}
+
+.cv-element {
+    padding: 6px 8px;
+    outline: none;
+    cursor: text;
+    word-break: break-word;
+}
+
+.cv-element-wrapper:hover .element-actions,
+.cv-element-wrapper.selected .element-actions {
+    opacity: 1;
+    visibility: visible;
+}
+
+.element-actions {
+    position: absolute;
+    top: -14px;
+    right: 8px;
+    display: flex;
+    gap: 3px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+    z-index: 100;
+}
+
+.element-actions button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.action-up, .action-down { background: #3b82f6; }
+.action-width { background: #10b981; }
+.action-delete { background: #ef4444; }
+
+.action-up:hover, .action-down:hover { background: #2563eb; }
+.action-width:hover { background: #059669; }
+.action-delete:hover { background: #dc2626; }
+
+/* ===== الخط الفاصل الأنيق ===== */
+.cv-divider {
+    width: 100%;
+    height: 2px;
+    background-color: #cbd5e1;
+    border: none;
+    margin: 8px 0;
+    transition: all 0.2s;
+}
+
+.cv-divider.vertical {
+    width: 2px;
+    height: 100px;
+    display: inline-block;
+    margin: 0 8px;
+}
+
+.cv-divider.dashed {
+    background: none !important;
+    border-top: 2px dashed #cbd5e1;
+}
+
+.cv-divider.vertical.dashed {
+    border-top: none !important;
+    border-right: 2px dashed #cbd5e1;
+}
+
+.cv-divider.dotted {
+    background: none !important;
+    border-top: 2px dotted #cbd5e1;
+}
+
+.cv-divider.vertical.dotted {
+    border-top: none !important;
+    border-right: 2px dotted #cbd5e1;
+}
+
+.cv-divider.double {
+    background: none !important;
+    border-top: 4px double #cbd5e1;
+}
+
+.cv-divider.vertical.double {
+    border-top: none !important;
+    border-right: 4px double #cbd5e1;
+}
+
+.cv-divider.gradient-line {
+    height: 3px;
+    background: linear-gradient(90deg, #e94560 0%, #3b82f6 50%, #10b981 100%) !important;
+    border: none !important;
+}
+
+.cv-divider.vertical.gradient-line {
+    width: 3px;
+    height: 100px;
+    background: linear-gradient(180deg, #e94560 0%, #3b82f6 50%, #10b981 100%) !important;
+}
+
