@@ -8,7 +8,6 @@
     font-weight: 800;
     color: #1a1a2e;
     margin-bottom: 10px;
-    border-bottom: 3px solid #e94560;
     padding-bottom: 12px;
 }
 .style-modern .cv-section {
@@ -21,19 +20,19 @@
     letter-spacing: 1.5px;
 }
 .style-modern .cv-text { font-size: 15px; line-height: 1.8; color: #334155; margin-bottom: 8px; }
-.style-modern .cv-experience { margin-bottom: 16px; padding-left: 16px; border-left: 4px solid #e94560; }
-.style-modern .cv-education { margin-bottom: 12px; padding: 14px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
+.style-modern .cv-experience { margin-bottom: 16px; padding-left: 16px; }
+.style-modern .cv-education { margin-bottom: 12px; padding: 6px 0; background: transparent; border: none; }
 .style-modern .cv-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .style-modern .cv-skill-tag { padding: 6px 16px; background: #1a1a2e; color: #fff; border-radius: 20px; font-size: 13px; font-weight: 500; }
 .style-modern .cv-link { color: #e94560; text-decoration: none; font-weight: 600; }
 .style-modern .cv-image { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 4px solid #e94560; box-shadow: 0 4px 12px rgba(233, 69, 96, 0.25); }
 
 /* 2. كلاسيكي (Classic) */
-.style-classic .cv-header { font-size: 32px; font-weight: bold; color: #111827; text-align: center; margin-bottom: 16px; border-bottom: 2px solid #111827; padding-bottom: 16px; font-family: Georgia, serif; }
-.style-classic .cv-section { font-size: 19px; font-weight: bold; color: #111827; margin-top: 24px; margin-bottom: 10px; border-bottom: 1px solid #374151; padding-bottom: 4px; font-family: Georgia, serif; }
+.style-classic .cv-header { font-size: 32px; font-weight: bold; color: #111827; text-align: center; margin-bottom: 16px; padding-bottom: 16px; font-family: Georgia, serif; }
+.style-classic .cv-section { font-size: 19px; font-weight: bold; color: #111827; margin-top: 24px; margin-bottom: 10px; padding-bottom: 4px; font-family: Georgia, serif; }
 .style-classic .cv-text { font-size: 14px; line-height: 1.7; color: #1f2937; margin-bottom: 8px; text-align: justify; font-family: Georgia, serif; }
 .style-classic .cv-experience { margin-bottom: 14px; font-family: Georgia, serif; }
-.style-classic .cv-education { margin-bottom: 10px; font-family: Georgia, serif; }
+.style-classic .cv-education { margin-bottom: 10px; padding: 6px 0; background: transparent; border: none; font-family: Georgia, serif; }
 .style-classic .cv-skills { margin-top: 8px; font-family: Georgia, serif; }
 .style-classic .cv-skill-tag { display: inline-block; margin-left: 12px; font-size: 14px; font-weight: 600; }
 .style-classic .cv-link { color: #111827; text-decoration: underline; font-family: Georgia, serif; }
@@ -43,32 +42,32 @@
 .style-minimal .cv-header { font-size: 28px; font-weight: 300; color: #1e293b; margin-bottom: 24px; letter-spacing: 2px; }
 .style-minimal .cv-section { font-size: 13px; font-weight: 600; color: #64748b; margin-top: 36px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
 .style-minimal .cv-text { font-size: 14px; line-height: 1.9; color: #475569; margin-bottom: 8px; font-weight: 300; }
-.style-minimal .cv-experience { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9; }
-.style-minimal .cv-education { margin-bottom: 16px; }
+.style-minimal .cv-experience { margin-bottom: 24px; padding-bottom: 20px; }
+.style-minimal .cv-education { margin-bottom: 16px; padding: 6px 0; background: transparent; border: none; }
 .style-minimal .cv-skills { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; }
-.style-minimal .cv-skill-tag { padding: 4px 0; font-size: 13px; color: #475569; border-bottom: 1px solid #cbd5e1; }
-.style-minimal .cv-link { color: #475569; text-decoration: none; border-bottom: 1px solid #cbd5e1; font-size: 13px; }
+.style-minimal .cv-skill-tag { padding: 4px 0; font-size: 13px; color: #475569; }
+.style-minimal .cv-link { color: #475569; text-decoration: none; font-size: 13px; }
 .style-minimal .cv-image { width: 90px; height: 90px; object-fit: cover; border-radius: 6px; margin-bottom: 20px; }
 
 /* 4. إبداعي (Creative) - تباين عالي ناصع */
-.style-creative { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important; color: #ffffff !important; }
-.style-creative .cv-header { font-size: 38px; font-weight: 800; color: #ffffff !important; margin-bottom: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-.style-creative .cv-section { font-size: 20px; font-weight: 700; color: #ffffff !important; margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid rgba(255, 255, 255, 0.4); }
-.style-creative .cv-text { font-size: 15px; line-height: 1.8; color: #ffffff !important; margin-bottom: 8px; }
-.style-creative .cv-experience { margin-bottom: 16px; padding: 16px; background: rgba(255, 255, 255, 0.18); color: #ffffff !important; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.25); }
-.style-creative .cv-education { margin-bottom: 12px; padding: 14px; background: rgba(255, 255, 255, 0.12); color: #ffffff !important; border-radius: 10px; }
+.style-creative { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important; color: #ffffff; }
+.style-creative .cv-header { font-size: 38px; font-weight: 800; color: #ffffff; margin-bottom: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+.style-creative .cv-section { font-size: 20px; font-weight: 700; color: #ffffff; margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px; }
+.style-creative .cv-text { font-size: 15px; line-height: 1.8; color: #ffffff; margin-bottom: 8px; }
+.style-creative .cv-experience { margin-bottom: 16px; padding: 16px; background: rgba(255, 255, 255, 0.18); color: #ffffff; border-radius: 12px; backdrop-filter: blur(10px); }
+.style-creative .cv-education { margin-bottom: 12px; padding: 6px 0; background: transparent; border: none; color: #ffffff; }
 .style-creative .cv-skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.style-creative .cv-skill-tag { padding: 7px 18px; background: rgba(255, 255, 255, 0.3); color: #ffffff !important; border-radius: 25px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.5); }
-.style-creative .cv-link { color: #fef08a !important; text-decoration: none; font-weight: 700; }
+.style-creative .cv-skill-tag { padding: 7px 18px; background: rgba(255, 255, 255, 0.3); color: #ffffff; border-radius: 25px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.5); }
+.style-creative .cv-link { color: #fef08a; text-decoration: none; font-weight: 700; }
 .style-creative .cv-image { width: 135px; height: 135px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255, 255, 255, 0.6); margin-bottom: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
 
 /* 5. تنفيذي فاخر (Executive) */
 .style-executive { background: #ffffff !important; border-top: 8px solid #0f172a !important; }
 .style-executive .cv-header { font-size: 34px; font-weight: 800; color: #0f172a; margin-bottom: 6px; letter-spacing: -0.5px; }
-.style-executive .cv-section { font-size: 18px; font-weight: 700; color: #0f172a; margin-top: 26px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #b45309; text-transform: uppercase; }
+.style-executive .cv-section { font-size: 18px; font-weight: 700; color: #0f172a; margin-top: 26px; margin-bottom: 12px; padding-bottom: 6px; text-transform: uppercase; }
 .style-executive .cv-text { font-size: 15px; line-height: 1.8; color: #334155; margin-bottom: 8px; }
-.style-executive .cv-experience { margin-bottom: 16px; padding: 14px 18px; background: #f8fafc; border-right: 4px solid #b45309; border-radius: 6px; }
-.style-executive .cv-education { margin-bottom: 12px; padding: 12px 16px; background: #f8fafc; border-radius: 6px; }
+.style-executive .cv-experience { margin-bottom: 16px; padding: 14px 18px; background: #f8fafc; border-radius: 6px; }
+.style-executive .cv-education { margin-bottom: 12px; padding: 6px 0; background: transparent; border: none; }
 .style-executive .cv-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .style-executive .cv-skill-tag { padding: 6px 14px; background: #0f172a; color: #fef3c7; border-radius: 6px; font-size: 13px; font-weight: 600; }
 .style-executive .cv-link { color: #b45309; text-decoration: none; font-weight: 700; }
@@ -76,34 +75,34 @@
 
 /* 6. زمردي أنيق (Emerald Fresh) */
 .style-emerald .cv-header { font-size: 35px; font-weight: 800; color: #065f46; margin-bottom: 8px; }
-.style-emerald .cv-section { font-size: 19px; font-weight: 700; color: #047857; margin-top: 26px; margin-bottom: 12px; padding: 6px 12px; background: #ecfdf5; border-radius: 6px; border-right: 4px solid #10b981; }
+.style-emerald .cv-section { font-size: 19px; font-weight: 700; color: #047857; margin-top: 26px; margin-bottom: 12px; padding: 6px 12px; background: #ecfdf5; border-radius: 6px; }
 .style-emerald .cv-text { font-size: 15px; line-height: 1.8; color: #1f2937; margin-bottom: 8px; }
-.style-emerald .cv-experience { margin-bottom: 16px; padding-left: 14px; border-left: 3px solid #10b981; }
-.style-emerald .cv-education { margin-bottom: 12px; padding: 12px; background: #f0fdf4; border-radius: 8px; }
+.style-emerald .cv-experience { margin-bottom: 16px; padding-left: 14px; }
+.style-emerald .cv-education { margin-bottom: 12px; padding: 6px 0; background: transparent; border: none; }
 .style-emerald .cv-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .style-emerald .cv-skill-tag { padding: 6px 16px; background: #10b981; color: #ffffff; border-radius: 20px; font-size: 13px; font-weight: 600; }
 .style-emerald .cv-link { color: #059669; text-decoration: none; font-weight: 600; }
 .style-emerald .cv-image { width: 125px; height: 125px; object-fit: cover; border-radius: 50%; border: 4px solid #10b981; margin-bottom: 16px; }
 
 /* 7. تقني مظلم (Dark Cyber) - تباين عالي ممتااااز */
-.style-darktech { background: #0f172a !important; color: #f8fafc !important; }
-.style-darktech .cv-header { font-size: 38px; font-weight: 900; color: #38bdf8 !important; margin-bottom: 10px; text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
-.style-darktech .cv-section { font-size: 19px; font-weight: 800; color: #c084fc !important; margin-top: 28px; margin-bottom: 12px; border-bottom: 2px dashed #a855f7; padding-bottom: 6px; }
-.style-darktech .cv-text { font-size: 15px; line-height: 1.8; color: #f1f5f9 !important; margin-bottom: 8px; }
-.style-darktech .cv-experience { margin-bottom: 16px; padding: 14px; background: #1e293b; color: #f8fafc !important; border-left: 4px solid #38bdf8; border-radius: 8px; }
-.style-darktech .cv-education { margin-bottom: 12px; padding: 12px; background: #1e293b; color: #f8fafc !important; border-radius: 8px; }
+.style-darktech { background: #0f172a !important; color: #f8fafc; }
+.style-darktech .cv-header { font-size: 38px; font-weight: 900; color: #38bdf8; margin-bottom: 10px; text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+.style-darktech .cv-section { font-size: 19px; font-weight: 800; color: #c084fc; margin-top: 28px; margin-bottom: 12px; padding-bottom: 6px; }
+.style-darktech .cv-text { font-size: 15px; line-height: 1.8; color: #f1f5f9; margin-bottom: 8px; }
+.style-darktech .cv-experience { margin-bottom: 16px; padding: 14px; background: #1e293b; color: #f8fafc; border-radius: 8px; }
+.style-darktech .cv-education { margin-bottom: 12px; padding: 6px 0; background: transparent; border: none; color: #f8fafc; }
 .style-darktech .cv-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.style-darktech .cv-skill-tag { padding: 6px 14px; background: #334155; color: #38bdf8 !important; border-radius: 6px; font-size: 13px; border: 1px solid #475569; }
-.style-darktech .cv-link { color: #38bdf8 !important; text-decoration: none; font-weight: 700; }
+.style-darktech .cv-skill-tag { padding: 6px 14px; background: #334155; color: #38bdf8; border-radius: 6px; font-size: 13px; border: 1px solid #475569; }
+.style-darktech .cv-link { color: #38bdf8; text-decoration: none; font-weight: 700; }
 .style-darktech .cv-image { width: 125px; height: 125px; object-fit: cover; border-radius: 12px; border: 3px solid #38bdf8; margin-bottom: 16px; box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
 
 /* 8. دافئ وذهبي (Warm Gold) */
 .style-warm { background: #fffbeb !important; }
 .style-warm .cv-header { font-size: 34px; font-weight: 800; color: #78350f; margin-bottom: 8px; font-family: Georgia, serif; }
-.style-warm .cv-section { font-size: 19px; font-weight: 700; color: #92400e; margin-top: 26px; margin-bottom: 12px; border-bottom: 2px solid #d97706; padding-bottom: 6px; font-family: Georgia, serif; }
+.style-warm .cv-section { font-size: 19px; font-weight: 700; color: #92400e; margin-top: 26px; margin-bottom: 12px; padding-bottom: 6px; font-family: Georgia, serif; }
 .style-warm .cv-text { font-size: 15px; line-height: 1.8; color: #451a03; margin-bottom: 8px; }
 .style-warm .cv-experience { margin-bottom: 16px; padding: 14px; background: #fef3c7; border-radius: 8px; }
-.style-warm .cv-education { margin-bottom: 12px; padding: 12px; background: #fef3c7; border-radius: 8px; }
+.style-warm .cv-education { margin-bottom: 12px; padding: 6px 0; background: transparent; border: none; }
 .style-warm .cv-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .style-warm .cv-skill-tag { padding: 6px 14px; background: #b45309; color: #ffffff; border-radius: 20px; font-size: 13px; font-weight: 600; }
 .style-warm .cv-link { color: #b45309; text-decoration: none; font-weight: 700; }

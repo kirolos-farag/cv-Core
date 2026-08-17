@@ -38,9 +38,9 @@ function showProperties(wrapper) {
     const computed = window.getComputedStyle(el);
     const wrapComputed = window.getComputedStyle(wrapper);
 
-    let html = `<h4>⚙️ خصائص: <span style="color:#e94560;">${getElementLabel(type)}</span></h4>`;
+    let html = `<h4>خصائص: <span style="color:#e94560;">${getElementLabel(type)}</span></h4>`;
 
-    // ===== خصائص خاصة بالخط الفاصل Divider =====
+    // ===== 1. خصائص خاصة بالخط الفاصل Divider =====
     if (type === 'divider') {
         const isVertical = el.classList.contains('vertical');
         const isDashed = el.classList.contains('dashed');
@@ -49,6 +49,7 @@ function showProperties(wrapper) {
         const isGradient = el.classList.contains('gradient-line');
         const currentLength = parseInt(isVertical ? (el.style.height || computed.height) : (el.style.width || computed.width)) || 100;
         const currentThick = parseInt(isVertical ? (el.style.width || computed.width) : (el.style.height || computed.height)) || 2;
+        const currentColorHex = rgbToHex(el.style.backgroundColor || el.style.borderColor || computed.backgroundColor || computed.borderColor);
 
         html += `
         <div class="prop-group">
@@ -87,7 +88,7 @@ function showProperties(wrapper) {
         <div class="prop-group">
             <label>لون الخط (Line Color):</label>
             <div class="color-picker-row">
-                <input type="color" id="prop-div-color" value="${rgbToHex(computed.backgroundColor || computed.borderColor)}">
+                <input type="color" id="prop-div-color" value="${currentColorHex}">
                 <div class="color-swatches-grid" data-target="div-color">
                     ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
                 </div>
@@ -99,11 +100,12 @@ function showProperties(wrapper) {
         return;
     }
 
-    // ===== خصائص خاصة بالصورة Image =====
+    // ===== 2. خصائص خاصة بالصورة الشخصية Image =====
     if (type === 'image') {
         const imgWidth = parseInt(el.style.width || computed.width) || 120;
         const imgHeight = parseInt(el.style.height || computed.height) || 120;
         const imgRadius = parseInt(el.style.borderRadius || computed.borderRadius) || 50;
+        const currentAlign = wrapComputed.textAlign || 'right';
 
         html += `
         <div class="prop-group">
@@ -116,15 +118,24 @@ function showProperties(wrapper) {
             <input type="text" id="prop-image-url" value="${el.src}">
         </div>
 
+        <div class="prop-group">
+            <label>محاذاة الصورة:</label>
+            <div class="toggle-group">
+                <button type="button" class="toggle-btn ${currentAlign === 'right' ? 'active' : ''}" data-img-align="right">يمين</button>
+                <button type="button" class="toggle-btn ${currentAlign === 'center' ? 'active' : ''}" data-img-align="center">وسط</button>
+                <button type="button" class="toggle-btn ${currentAlign === 'left' ? 'active' : ''}" data-img-align="left">يسار</button>
+            </div>
+        </div>
+
         <div class="prop-row">
             <div class="prop-group">
-                <label>عرض الصورة: <span class="prop-val-badge" id="val-img-width">${imgWidth}px</span></label>
+                <label>العرض: <span class="prop-val-badge" id="val-img-width">${imgWidth}px</span></label>
                 <div class="prop-slider-wrapper">
                     <input type="range" id="prop-img-width" min="30" max="500" value="${imgWidth}">
                 </div>
             </div>
             <div class="prop-group">
-                <label>ارتفاع الصورة: <span class="prop-val-badge" id="val-img-height">${imgHeight}px</span></label>
+                <label>الارتفاع: <span class="prop-val-badge" id="val-img-height">${imgHeight}px</span></label>
                 <div class="prop-slider-wrapper">
                     <input type="range" id="prop-img-height" min="30" max="500" value="${imgHeight}">
                 </div>
@@ -132,7 +143,7 @@ function showProperties(wrapper) {
         </div>
 
         <div class="prop-group">
-            <label>انحناء وشكل الصورة (Border Radius): <span class="prop-val-badge" id="val-img-radius">${imgRadius}px</span></label>
+            <label>انحناء وشكل الصورة: <span class="prop-val-badge" id="val-img-radius">${imgRadius}px</span></label>
             <div class="prop-slider-wrapper">
                 <input type="range" id="prop-img-radius" min="0" max="250" value="${imgRadius}">
             </div>
@@ -160,14 +171,107 @@ function showProperties(wrapper) {
         return;
     }
 
-    // 1. المحتوى للنصوص
-    html += `
-    <div class="prop-group">
-        <label>المحتوى النصي:</label>
-        <textarea id="prop-text-content" rows="3">${el.innerText || el.innerHTML}</textarea>
-    </div>`;
+    // ===== 3. خصائص المحتوى النصي حسب نوع العنصر =====
+    if (type === 'experience') {
+        const strongEl = el.querySelector('strong');
+        const spanEl = el.querySelector('span');
+        const pEl = el.querySelector('p');
 
-    // 3. عروض الأبعاد المرنة Flex Width
+        const headerText = strongEl ? el.innerHTML.split('<br>')[0].replace(/<[^>]*>/g, '').trim() : 'المسمّى الوظيفي - اسم الشركة';
+        const dateText = spanEl ? spanEl.innerText : '2021 - الحالي';
+        const descText = pEl ? pEl.innerText : 'وصف مختصر للإنجازات والمسؤوليات الرئيسية...';
+
+        html += `
+        <div class="prop-group">
+            <label>المسمّى الوظيفي والشركة:</label>
+            <input type="text" id="prop-exp-header" value="${headerText.replace(/"/g, '&quot;')}">
+        </div>
+        <div class="prop-group">
+            <label>الفترة الزمنية والتاريخ:</label>
+            <input type="text" id="prop-exp-date" value="${dateText.replace(/"/g, '&quot;')}">
+        </div>
+        <div class="prop-group">
+            <label>وصف المهام والإنجازات:</label>
+            <textarea id="prop-exp-desc" rows="3">${descText}</textarea>
+        </div>`;
+    } else if (type === 'education') {
+        const strongEl = el.querySelector('strong');
+        const spanEl = el.querySelector('span');
+
+        const degreeText = strongEl ? strongEl.innerText : 'درجة البكالوريوس في التخصص';
+        const subText = spanEl ? spanEl.innerText : 'اسم الجامعة | 2017 - 2021';
+
+        html += `
+        <div class="prop-group">
+            <label>المؤهل العلمي / الشهادة:</label>
+            <input type="text" id="prop-edu-degree" value="${degreeText.replace(/"/g, '&quot;')}">
+        </div>
+        <div class="prop-group">
+            <label>اسم الجامعة والتاريخ:</label>
+            <input type="text" id="prop-edu-subtitle" value="${subText.replace(/"/g, '&quot;')}">
+        </div>`;
+    } else if (type === 'skills') {
+        const tags = Array.from(el.querySelectorAll('.cv-skill-tag')).map(t => t.innerText).join(', ');
+        const firstTag = el.querySelector('.cv-skill-tag');
+        const tagComputed = firstTag ? window.getComputedStyle(firstTag) : null;
+        const tagTextColor = tagComputed ? rgbToHex(tagComputed.color) : '#ffffff';
+        const tagBgColor = tagComputed ? rgbToHex(tagComputed.backgroundColor) : '#1a1a2e';
+
+        html += `
+        <div class="prop-group">
+            <label>قائمة المهارات (مفصولة بفواصل):</label>
+            <input type="text" id="prop-skills-list" value="${tags.replace(/"/g, '&quot;')}">
+        </div>
+        <div class="prop-group">
+            <label>لون نص بطاقات المهارات:</label>
+            <div class="color-picker-row">
+                <input type="color" id="prop-tag-color" value="${tagTextColor}">
+                <div class="color-swatches-grid" data-target="tag-color">
+                    ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
+                </div>
+            </div>
+        </div>
+        <div class="prop-group">
+            <label>لون خلفية بطاقات المهارات:</label>
+            <div class="color-picker-row">
+                <input type="color" id="prop-tag-bg" value="${tagBgColor}">
+                <div class="color-swatches-grid" data-target="tag-bg">
+                    ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
+                </div>
+            </div>
+        </div>`;
+    } else if (type === 'link') {
+        const hrefVal = el.getAttribute('href') || '#';
+        const linkText = el.innerText || '🔗 رابط تفاعلي';
+        const isBlank = el.getAttribute('target') === '_blank';
+
+        html += `
+        <div class="prop-group">
+            <label>نص الرابط الظاهر:</label>
+            <input type="text" id="prop-link-text" value="${linkText.replace(/"/g, '&quot;')}">
+        </div>
+        <div class="prop-group">
+            <label>رابط الموقع (URL):</label>
+            <input type="text" id="prop-link-url" value="${hrefVal.replace(/"/g, '&quot;')}">
+        </div>
+        <div class="prop-group">
+            <label>فتح الرابط:</label>
+            <div class="toggle-group">
+                <button type="button" class="toggle-btn ${isBlank ? 'active' : ''}" id="prop-link-target">
+                    ${isBlank ? 'نافذة جديدة (_blank)' : 'نفس النافذة (_self)'}
+                </button>
+            </div>
+        </div>`;
+    } else {
+        // عناصر النص الأخرى (Header H1, Section H2, Text Paragraph)
+        html += `
+        <div class="prop-group">
+            <label>المحتوى النصي:</label>
+            <textarea id="prop-text-content" rows="3">${el.innerText}</textarea>
+        </div>`;
+    }
+
+    // ===== 4. عروض الأبعاد المرنة Flex Width =====
     html += `
     <div class="prop-group">
         <label>عرض العنصر (Flex Width):</label>
@@ -179,7 +283,7 @@ function showProperties(wrapper) {
         </div>
     </div>`;
 
-    // 4. نوع الخط (Font Family)
+    // ===== 5. نوع الخط (Font Family) =====
     html += `
     <div class="prop-group">
         <label>نوع الخط (Font Family):</label>
@@ -188,7 +292,7 @@ function showProperties(wrapper) {
         </select>
     </div>`;
 
-    // 5. حجم الخط (Font Size Slider)
+    // ===== 6. حجم الخط (Font Size Slider) =====
     const currentFontSize = parseInt(computed.fontSize) || 16;
     html += `
     <div class="prop-group">
@@ -198,46 +302,50 @@ function showProperties(wrapper) {
         </div>
     </div>`;
 
-    // 6. الألوان (Text Color & Background Color)
-    const textColorHex = rgbToHex(computed.color);
-    const bgColorHex = rgbToHex(computed.backgroundColor);
+    // ===== 7. الألوان (Text Color & Background Color) - مستبعد لقائمة المهارات =====
+    if (type !== 'skills') {
+        const textColorHex = rgbToHex(computed.color);
+        const rawBg = computed.backgroundColor;
+        const isBgTransparent = !rawBg || rawBg === 'transparent' || rawBg === 'rgba(0, 0, 0, 0)';
+        const bgColorHex = isBgTransparent ? '#ffffff' : rgbToHex(rawBg);
 
-    html += `
-    <div class="prop-group">
-        <label>لون النص (Text Color):</label>
-        <div class="color-picker-row">
-            <input type="color" id="prop-color" value="${textColorHex}">
-            <div class="color-swatches-grid" data-target="color">
-                ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
+        html += `
+        <div class="prop-group">
+            <label>لون النص (Text Color):</label>
+            <div class="color-picker-row">
+                <input type="color" id="prop-color" value="${textColorHex}">
+                <div class="color-swatches-grid" data-target="color">
+                    ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
+                </div>
             </div>
-        </div>
-    </div>`;
+        </div>`;
 
-    html += `
-    <div class="prop-group">
-        <label>لون الخلفية (Background):</label>
-        <div class="color-picker-row">
-            <input type="color" id="prop-bg-color" value="${bgColorHex}">
-            <button type="button" class="transparent-btn" id="prop-bg-transparent">شفاف</button>
-            <div class="color-swatches-grid" data-target="bg">
-                ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
+        html += `
+        <div class="prop-group">
+            <label>لون خلفية العنصر (Background):</label>
+            <div class="color-picker-row">
+                <input type="color" id="prop-bg-color" value="${bgColorHex}">
+                <button type="button" class="transparent-btn" id="prop-bg-transparent">شفاف</button>
+                <div class="color-swatches-grid" data-target="bg">
+                    ${ColorPaletteSwatches.map(c => `<button type="button" class="color-swatch-btn" style="background:${c};" data-color="${c}"></button>`).join('')}
+                </div>
             </div>
-        </div>
-    </div>`;
+        </div>`;
 
-    // 7. محاذاة النص Text Align
-    html += `
-    <div class="prop-group">
-        <label>محاذاة النص:</label>
-        <div class="toggle-group">
-            <button type="button" class="toggle-btn ${computed.textAlign === 'right' ? 'active' : ''}" data-align="right">يمين</button>
-            <button type="button" class="toggle-btn ${computed.textAlign === 'center' ? 'active' : ''}" data-align="center">وسط</button>
-            <button type="button" class="toggle-btn ${computed.textAlign === 'left' ? 'active' : ''}" data-align="left">يسار</button>
-            <button type="button" class="toggle-btn ${computed.textAlign === 'justify' ? 'active' : ''}" data-align="justify">ضبط</button>
-        </div>
-    </div>`;
+        // ===== 8. محاذاة النص Text Align =====
+        html += `
+        <div class="prop-group">
+            <label>محاذاة النص:</label>
+            <div class="toggle-group">
+                <button type="button" class="toggle-btn ${computed.textAlign === 'right' ? 'active' : ''}" data-align="right">يمين</button>
+                <button type="button" class="toggle-btn ${computed.textAlign === 'center' ? 'active' : ''}" data-align="center">وسط</button>
+                <button type="button" class="toggle-btn ${computed.textAlign === 'left' ? 'active' : ''}" data-align="left">يسار</button>
+                <button type="button" class="toggle-btn ${computed.textAlign === 'justify' ? 'active' : ''}" data-align="justify">ضبط</button>
+            </div>
+        </div>`;
+    }
 
-    // 8. الهوامش الداخلية والخارجية Padding & Margin Sliders
+    // ===== 9. الهوامش Padding & Margin =====
     const currentPadding = parseInt(computed.paddingTop) || 6;
     const currentMargin = parseInt(wrapComputed.marginBottom) || 8;
 
@@ -254,16 +362,6 @@ function showProperties(wrapper) {
             <div class="prop-slider-wrapper">
                 <input type="range" id="prop-margin" min="0" max="50" value="${currentMargin}">
             </div>
-        </div>
-    </div>`;
-
-    // 9. انحناء الحدود Border Radius Slider
-    const currentRadius = parseInt(computed.borderRadius) || 0;
-    html += `
-    <div class="prop-group">
-        <label>انحناء الحواف (Border Radius): <span class="prop-val-badge" id="val-radius">${currentRadius}px</span></label>
-        <div class="prop-slider-wrapper">
-            <input type="range" id="prop-border-radius" min="0" max="50" value="${currentRadius}">
         </div>
     </div>`;
 
@@ -310,6 +408,9 @@ function bindDividerPropertiesEvents(wrapper, el) {
         styleSelect.addEventListener('change', () => {
             el.classList.remove('solid', 'dashed', 'dotted', 'double', 'gradient-line');
             el.classList.add(styleSelect.value);
+            const currentColor = colorInput ? colorInput.value : '#cbd5e1';
+            el.style.backgroundColor = currentColor;
+            el.style.borderColor = currentColor;
         });
     }
 
@@ -385,6 +486,24 @@ function bindImagePropertiesEvents(wrapper, el) {
         });
     }
 
+    document.querySelectorAll('.toggle-group button[data-img-align]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const align = btn.dataset.imgAlign;
+            wrapper.style.textAlign = align;
+            if (align === 'center') {
+                el.style.display = 'inline-block';
+                el.style.margin = '0 auto';
+            } else if (align === 'left') {
+                el.style.display = 'inline-block';
+                el.style.margin = '0 0 0 auto';
+            } else {
+                el.style.display = 'inline-block';
+                el.style.margin = '0';
+            }
+            showProperties(wrapper);
+        });
+    });
+
     if (widthSlider) {
         widthSlider.addEventListener('input', () => {
             el.style.width = widthSlider.value + 'px';
@@ -431,10 +550,6 @@ function bindImagePropertiesEvents(wrapper, el) {
     }
 }
 
-/**
- * خصائص خلفية الورقة والصفحات المخصصة (Page & Background Inspector)
- * تظهر داخل لوحة "⚙️ خصائص العنصر" عند النقر على أي مكان في الورقة
- */
 function showPageProperties(pageElement) {
     if (!pageElement) return;
 
@@ -444,37 +559,37 @@ function showPageProperties(pageElement) {
     const computed = window.getComputedStyle(pageElement);
     let splitBand = pageElement.querySelector('.page-split-band');
 
-    let html = `<h4>📄 خصائص الورقة والصفحة: <span style="color:#e94560;">(صفحة ${pageElement.dataset.page || '1'})</span></h4>`;
+    let html = `<h4>خصائص الورقة والصفحة: <span style="color:#e94560;">(صفحة ${pageElement.dataset.page || '1'})</span></h4>`;
 
     // 1. نمط الهيكل والتصميم العام للورقة
     html += `
     <div class="prop-group">
-        <label>📐 تخطيط هيكل الصفحة (Layout):</label>
+        <label>تخطيط هيكل الصفحة (Layout):</label>
         <select id="prop-page-layout">
-            <option value="single" ${AppState.canvas.classList.contains('layout-single') ? 'selected' : ''}>📐 عمود واحد (Standard)</option>
-            <option value="two-column" ${AppState.canvas.classList.contains('layout-two-column') ? 'selected' : ''}>📄 عمودان شريط جانبي (Two Columns)</option>
-            <option value="header-banner" ${AppState.canvas.classList.contains('layout-header-banner') ? 'selected' : ''}>📰 ترويسة + عمودين (Banner + Columns)</option>
+            <option value="single" ${AppState.canvas.classList.contains('layout-single') ? 'selected' : ''}>عمود واحد (Standard)</option>
+            <option value="two-column" ${AppState.canvas.classList.contains('layout-two-column') ? 'selected' : ''}>عمودان شريط جانبي (Two Columns)</option>
+            <option value="header-banner" ${AppState.canvas.classList.contains('layout-header-banner') ? 'selected' : ''}>ترويسة + عمودين (Banner + Columns)</option>
         </select>
     </div>
 
     <div class="prop-group">
-        <label>🎨 نمط وتصميم السيرة الذاتية (Theme):</label>
+        <label>نمط وتصميم السيرة الذاتية (Theme):</label>
         <select id="prop-page-style">
-            <option value="modern" ${AppState.canvas.classList.contains('style-modern') ? 'selected' : ''}>🎨 عصري (Modern)</option>
-            <option value="classic" ${AppState.canvas.classList.contains('style-classic') ? 'selected' : ''}>📜 كلاسيكي (Classic)</option>
-            <option value="minimal" ${AppState.canvas.classList.contains('style-minimal') ? 'selected' : ''}>⚪ بسيط (Minimalist)</option>
-            <option value="creative" ${AppState.canvas.classList.contains('style-creative') ? 'selected' : ''}>🌈 إبداعي (Creative)</option>
-            <option value="executive" ${AppState.canvas.classList.contains('style-executive') ? 'selected' : ''}>💼 تنفيذي فاخر (Executive)</option>
-            <option value="emerald" ${AppState.canvas.classList.contains('style-emerald') ? 'selected' : ''}>🌿 زمردي أنيق (Emerald)</option>
-            <option value="darktech" ${AppState.canvas.classList.contains('style-darktech') ? 'selected' : ''}>⚡ تقني مظلم (Dark Cyber)</option>
-            <option value="warm" ${AppState.canvas.classList.contains('style-warm') ? 'selected' : ''}>✨ دافئ وذهبي (Warm Gold)</option>
+            <option value="modern" ${AppState.canvas.classList.contains('style-modern') ? 'selected' : ''}>عصري (Modern)</option>
+            <option value="classic" ${AppState.canvas.classList.contains('style-classic') ? 'selected' : ''}>كلاسيكي (Classic)</option>
+            <option value="minimal" ${AppState.canvas.classList.contains('style-minimal') ? 'selected' : ''}>بسيط (Minimalist)</option>
+            <option value="creative" ${AppState.canvas.classList.contains('style-creative') ? 'selected' : ''}>إبداعي (Creative)</option>
+            <option value="executive" ${AppState.canvas.classList.contains('style-executive') ? 'selected' : ''}>تنفيذي فاخر (Executive)</option>
+            <option value="emerald" ${AppState.canvas.classList.contains('style-emerald') ? 'selected' : ''}>زمردي أنيق (Emerald)</option>
+            <option value="darktech" ${AppState.canvas.classList.contains('style-darktech') ? 'selected' : ''}>تقني مظلم (Dark Cyber)</option>
+            <option value="warm" ${AppState.canvas.classList.contains('style-warm') ? 'selected' : ''}>دافئ وذهبي (Warm Gold)</option>
         </select>
     </div>`;
 
     // 2. لون خلفية الصفحة
     const pageBgHex = rgbToHex(computed.backgroundColor);
     html += `
-    <div class="prop-section-title">🎨 تلوين خلفية الورقة والتدرجات</div>
+    <div class="prop-section-title">تلوين خلفية الورقة والتدرجات</div>
     <div class="prop-group">
         <label>لون خلفية الورقة (Page Background):</label>
         <div class="color-picker-row">
@@ -498,11 +613,11 @@ function showPageProperties(pageElement) {
     // 4. أداة تقسيم وتلوين شريط جانبي مقتطع (Side/Top Color Band Splitter)
     const hasBand = !!splitBand;
     html += `
-    <div class="prop-section-title">✂️ تلوين وتقسيم جزء مقتطع من الصفحة</div>
+    <div class="prop-section-title">تلوين وتقسيم جزء مقتطع من الصفحة</div>
     <div class="prop-group">
         <label>تفعيل شريط خلفية مقسم (Split Band):</label>
         <div class="toggle-group">
-            <button type="button" class="toggle-btn ${hasBand ? 'active' : ''}" id="btn-toggle-band">${hasBand ? 'مُفعل ✅' : 'غير مفعل ❌'}</button>
+            <button type="button" class="toggle-btn ${hasBand ? 'active' : ''}" id="btn-toggle-band">${hasBand ? 'مُفعل' : 'غير مفعل'}</button>
         </div>
     </div>`;
 
@@ -516,9 +631,10 @@ function showPageProperties(pageElement) {
         <div class="prop-group">
             <label>موقع الجزء المقتطع:</label>
             <div class="toggle-group">
-                <button type="button" class="toggle-btn ${(!isLeft && !isTop) ? 'active' : ''}" id="band-pos-right">يمين (Right)</button>
+                <button type="button" class="toggle-btn ${(!isLeft && !isTop && !splitBand.classList.contains('pos-bottom')) ? 'active' : ''}" id="band-pos-right">يمين (Right)</button>
                 <button type="button" class="toggle-btn ${isLeft ? 'active' : ''}" id="band-pos-left">يسار (Left)</button>
                 <button type="button" class="toggle-btn ${isTop ? 'active' : ''}" id="band-pos-top">أعلى (Top Banner)</button>
+                <button type="button" class="toggle-btn ${splitBand.classList.contains('pos-bottom') ? 'active' : ''}" id="band-pos-bottom">أسفل (Bottom Banner)</button>
             </div>
         </div>
 
@@ -609,7 +725,6 @@ function bindPagePropertiesEvents(pageElement) {
         });
     });
 
-    // الشريط الجانبي المقتطع Split Band Events
     const toggleBandBtn = document.getElementById('btn-toggle-band');
     if (toggleBandBtn) {
         toggleBandBtn.addEventListener('click', () => {
@@ -628,6 +743,7 @@ function bindPagePropertiesEvents(pageElement) {
     const bandRight = document.getElementById('band-pos-right');
     const bandLeft = document.getElementById('band-pos-left');
     const bandTop = document.getElementById('band-pos-top');
+    const bandBottom = document.getElementById('band-pos-bottom');
     const bandW25 = document.getElementById('band-w-25');
     const bandW33 = document.getElementById('band-w-33');
     const bandW50 = document.getElementById('band-w-50');
@@ -637,22 +753,29 @@ function bindPagePropertiesEvents(pageElement) {
     if (band) {
         if (bandRight) {
             bandRight.addEventListener('click', () => {
-                band.classList.remove('pos-left', 'pos-top');
+                band.classList.remove('pos-left', 'pos-top', 'pos-bottom');
                 band.classList.add('pos-right');
                 showPageProperties(pageElement);
             });
         }
         if (bandLeft) {
             bandLeft.addEventListener('click', () => {
-                band.classList.remove('pos-right', 'pos-top');
+                band.classList.remove('pos-right', 'pos-top', 'pos-bottom');
                 band.classList.add('pos-left');
                 showPageProperties(pageElement);
             });
         }
         if (bandTop) {
             bandTop.addEventListener('click', () => {
-                band.classList.remove('pos-right', 'pos-left');
+                band.classList.remove('pos-right', 'pos-left', 'pos-bottom');
                 band.classList.add('pos-top');
+                showPageProperties(pageElement);
+            });
+        }
+        if (bandBottom) {
+            bandBottom.addEventListener('click', () => {
+                band.classList.remove('pos-right', 'pos-left', 'pos-top');
+                band.classList.add('pos-bottom');
                 showPageProperties(pageElement);
             });
         }
@@ -693,7 +816,6 @@ function bindPagePropertiesEvents(pageElement) {
         });
     }
 
-    // Padding Slider
     const pagePadSlider = document.getElementById('prop-page-pad');
     const valPagePad = document.getElementById('val-page-pad');
     if (pagePadSlider) {
@@ -705,37 +827,138 @@ function bindPagePropertiesEvents(pageElement) {
 }
 
 function bindPropertiesEvents(wrapper, el) {
-    // 1. تحديث المحتوى
-    const textContent = document.getElementById('prop-text-content');
-    if (textContent) {
-        textContent.addEventListener('input', () => {
-            el.innerText = textContent.value;
+    const type = wrapper.dataset.type;
+
+    // 1. تحديث المحتوى حسب نوع العنصر
+    if (type === 'experience') {
+        const expHeader = document.getElementById('prop-exp-header');
+        const expDate = document.getElementById('prop-exp-date');
+        const expDesc = document.getElementById('prop-exp-desc');
+
+        const updateExp = () => {
+            const hVal = expHeader ? expHeader.value : 'المسمّى الوظيفي - اسم الشركة';
+            const dVal = expDate ? expDate.value : '2021 - الحالي';
+            const descVal = expDesc ? expDesc.value : 'وصف الإنجازات...';
+
+            const parts = hVal.split('-');
+            const titlePart = parts[0] ? parts[0].trim() : hVal;
+            const compPart = parts[1] ? parts[1].trim() : '';
+
+            el.innerHTML = `<strong>${titlePart}</strong>${compPart ? ' - ' + compPart : ''}<br><span style="opacity:0.8; font-size:0.9em;">${dVal}</span><p>${descVal}</p>`;
+        };
+
+        if (expHeader) expHeader.addEventListener('input', updateExp);
+        if (expDate) expDate.addEventListener('input', updateExp);
+        if (expDesc) expDesc.addEventListener('input', updateExp);
+    } else if (type === 'education') {
+        const eduDeg = document.getElementById('prop-edu-degree');
+        const eduSub = document.getElementById('prop-edu-subtitle');
+
+        const updateEdu = () => {
+            const deg = eduDeg ? eduDeg.value : 'درجة البكالوريوس';
+            const sub = eduSub ? eduSub.value : 'اسم الجامعة | 2017 - 2021';
+            el.innerHTML = `<strong>${deg}</strong><br><span style="opacity:0.8; font-size:0.9em;">${sub}</span>`;
+        };
+
+        if (eduDeg) eduDeg.addEventListener('input', updateEdu);
+        if (eduSub) eduSub.addEventListener('input', updateEdu);
+    } else if (type === 'skills') {
+        const skillsListInput = document.getElementById('prop-skills-list');
+        const tagColorInput = document.getElementById('prop-tag-color');
+        const tagBgInput = document.getElementById('prop-tag-bg');
+
+        if (skillsListInput) {
+            skillsListInput.addEventListener('input', () => {
+                const tagsArr = skillsListInput.value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                if (tagsArr.length === 0) return;
+
+                const firstTag = el.querySelector('.cv-skill-tag');
+                const tColor = firstTag ? firstTag.style.color : '';
+                const tBg = firstTag ? firstTag.style.backgroundColor : '';
+
+                el.innerHTML = tagsArr.map(t => {
+                    const styleAttr = (tColor || tBg) 
+                        ? `style="${tColor ? 'color:'+tColor+';' : ''}${tBg ? 'background-color:'+tBg+';' : ''}"`
+                        : '';
+                    return `<span class="cv-skill-tag" contenteditable="true" ${styleAttr}>${t}</span>`;
+                }).join(' ');
+            });
+        }
+
+        if (tagColorInput) {
+            tagColorInput.addEventListener('input', () => {
+                const chosen = tagColorInput.value;
+                el.querySelectorAll('.cv-skill-tag').forEach(t => t.style.color = chosen);
+            });
+        }
+
+        if (tagBgInput) {
+            tagBgInput.addEventListener('input', () => {
+                const chosen = tagBgInput.value;
+                el.querySelectorAll('.cv-skill-tag').forEach(t => t.style.backgroundColor = chosen);
+            });
+        }
+
+        document.querySelectorAll('.color-swatches-grid[data-target="tag-color"] button[data-color]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const chosen = btn.dataset.color;
+                el.querySelectorAll('.cv-skill-tag').forEach(t => t.style.color = chosen);
+                if (tagColorInput) tagColorInput.value = chosen;
+            });
         });
+
+        document.querySelectorAll('.color-swatches-grid[data-target="tag-bg"] button[data-color]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const chosen = btn.dataset.color;
+                el.querySelectorAll('.cv-skill-tag').forEach(t => t.style.backgroundColor = chosen);
+                if (tagBgInput) tagBgInput.value = chosen;
+            });
+        });
+    } else if (type === 'link') {
+        const linkTextInput = document.getElementById('prop-link-text');
+        const linkUrlInput = document.getElementById('prop-link-url');
+        const linkTargetBtn = document.getElementById('prop-link-target');
+
+        if (linkTextInput) {
+            linkTextInput.addEventListener('input', () => {
+                el.innerText = linkTextInput.value;
+            });
+        }
+
+        if (linkUrlInput) {
+            linkUrlInput.addEventListener('input', () => {
+                let urlVal = linkUrlInput.value.trim();
+                if (urlVal && !urlVal.startsWith('http://') && !urlVal.startsWith('https://') && !urlVal.startsWith('mailto:') && !urlVal.startsWith('tel:') && !urlVal.startsWith('#')) {
+                    urlVal = 'https://' + urlVal;
+                }
+                el.setAttribute('href', urlVal || '#');
+            });
+        }
+
+        if (linkTargetBtn) {
+            linkTargetBtn.addEventListener('click', () => {
+                const isBlank = el.getAttribute('target') === '_blank';
+                if (isBlank) {
+                    el.removeAttribute('target');
+                    linkTargetBtn.classList.remove('active');
+                    linkTargetBtn.innerText = 'نفس النافذة (_self)';
+                } else {
+                    el.setAttribute('target', '_blank');
+                    linkTargetBtn.classList.add('active');
+                    linkTargetBtn.innerText = 'نافذة جديدة (_blank)';
+                }
+            });
+        }
+    } else {
+        const textContent = document.getElementById('prop-text-content');
+        if (textContent) {
+            textContent.addEventListener('input', () => {
+                el.innerText = textContent.value;
+            });
+        }
     }
 
-    // 2. ملف الصورة و URL
-    const imgFile = document.getElementById('prop-image-file');
-    const imgUrl = document.getElementById('prop-image-url');
-    if (imgFile) {
-        imgFile.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    el.src = event.target.result;
-                    if (imgUrl) imgUrl.value = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-    if (imgUrl) {
-        imgUrl.addEventListener('input', () => {
-            el.src = imgUrl.value;
-        });
-    }
-
-    // 3. أزرار العرض Flex Width
+    // 2. أزرار العرض Flex Width
     document.querySelectorAll('.toggle-group button[data-w]').forEach(btn => {
         btn.addEventListener('click', () => {
             wrapper.classList.remove('w-100', 'w-50', 'w-33', 'w-25');
@@ -744,7 +967,7 @@ function bindPropertiesEvents(wrapper, el) {
         });
     });
 
-    // 4. الخطوط
+    // 3. الخطوط
     const fontFamilySelect = document.getElementById('prop-font-family');
     if (fontFamilySelect) {
         fontFamilySelect.addEventListener('change', () => {
@@ -752,21 +975,30 @@ function bindPropertiesEvents(wrapper, el) {
         });
     }
 
-    // 5. حجم الخط
+    // 4. حجم الخط
     const fontSizeSlider = document.getElementById('prop-font-size');
     const valFontSize = document.getElementById('val-font-size');
     if (fontSizeSlider) {
         fontSizeSlider.addEventListener('input', () => {
-            el.style.fontSize = fontSizeSlider.value + 'px';
-            if (valFontSize) valFontSize.innerText = fontSizeSlider.value + 'px';
+            const val = fontSizeSlider.value + 'px';
+            el.style.fontSize = val;
+            if (valFontSize) valFontSize.innerText = val;
+            el.querySelectorAll('.cv-skill-tag').forEach(t => t.style.fontSize = val);
         });
     }
 
-    // 6. لون النص ولون الخلفية
+    // 5. لون النص ولون الخلفية الرئيسي للعنصر
     const colorInput = document.getElementById('prop-color');
     if (colorInput) {
         colorInput.addEventListener('input', () => {
-            el.style.color = colorInput.value;
+            const chosen = colorInput.value;
+            el.style.color = chosen;
+            // إزالة أي ألوان صريحة من الوسوم الفرعية بداخل العنصر لكي ترث لون النص الرئيسي
+            el.querySelectorAll('*').forEach(child => {
+                if (!child.classList.contains('cv-skill-tag')) {
+                    child.style.color = 'inherit';
+                }
+            });
         });
     }
 
@@ -791,15 +1023,20 @@ function bindPropertiesEvents(wrapper, el) {
             const chosenColor = btn.dataset.color;
             if (target === 'color') {
                 el.style.color = chosenColor;
+                el.querySelectorAll('*').forEach(child => {
+                    if (!child.classList.contains('cv-skill-tag')) {
+                        child.style.color = 'inherit';
+                    }
+                });
                 if (colorInput) colorInput.value = chosenColor;
-            } else {
+            } else if (target === 'bg') {
                 el.style.backgroundColor = chosenColor;
                 if (bgColorInput) bgColorInput.value = chosenColor;
             }
         });
     });
 
-    // 7. محاذاة النص
+    // 6. محاذاة النص
     document.querySelectorAll('.toggle-group button[data-align]').forEach(btn => {
         btn.addEventListener('click', () => {
             el.style.textAlign = btn.dataset.align;
@@ -807,7 +1044,7 @@ function bindPropertiesEvents(wrapper, el) {
         });
     });
 
-    // 8. الهوامش Sliders
+    // 7. الهوامش Sliders
     const paddingSlider = document.getElementById('prop-padding');
     const valPadding = document.getElementById('val-padding');
     if (paddingSlider) {
@@ -825,16 +1062,6 @@ function bindPropertiesEvents(wrapper, el) {
             if (valMargin) valMargin.innerText = marginSlider.value + 'px';
         });
     }
-
-    // 9. انحناء الحدود Border Radius
-    const radiusSlider = document.getElementById('prop-border-radius');
-    const valRadius = document.getElementById('val-radius');
-    if (radiusSlider) {
-        radiusSlider.addEventListener('input', () => {
-            el.style.borderRadius = radiusSlider.value + 'px';
-            if (valRadius) valRadius.innerText = radiusSlider.value + 'px';
-        });
-    }
 }
 
 function showEmptyProperties() {
@@ -843,23 +1070,23 @@ function showEmptyProperties() {
 
 function getElementLabel(type) {
     const labels = {
-        header: 'عنوان رئيسي',
-        section: 'عنوان فرعي / قسم',
+        header: 'عنوان رئيسي (H1)',
+        section: 'عنوان قسم (H2)',
         text: 'فقرة نصية',
-        divider: 'خط فاصل أنيق',
-        experience: 'خبرة عملية',
-        education: 'مؤهل تعليمي',
-        skills: 'قائمة مهارات',
-        link: 'رابط تفاعلي',
+        divider: '📏 خط فاصل أنيق',
+        experience: 'عنصر خبرة عملية',
+        education: 'عنصر تعليم ومؤهل',
+        skills: 'قائمة مهارات (Tags)',
+        link: 'رابط خارجي',
         image: 'صورة شخصية'
     };
     return labels[type] || type;
 }
 
 function rgbToHex(rgb) {
-    if (!rgb || rgb === 'transparent' || rgb === 'rgba(0, 0, 0, 0)') return '#000000';
+    if (!rgb || rgb === 'transparent' || rgb === 'rgba(0, 0, 0, 0)') return '#ffffff';
     const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-    if (!match) return '#000000';
+    if (!match) return '#ffffff';
     return '#' + [match[1], match[2], match[3]].map(x => {
         const hex = parseInt(x).toString(16);
         return hex.length === 1 ? '0' + hex : hex;

@@ -67,7 +67,7 @@ function setupPagesManager() {
 
             newPage.innerHTML = `
                 <div class="page-number-badge">صفحة ${AppState.pageCounter}</div>
-                <button class="page-remove-btn" title="حذف الصفحة">🗑️ حذف الصفحة</button>
+                <button class="page-remove-btn" title="حذف الصفحة">حذف الصفحة</button>
                 <div class="page-body"></div>
             `;
 
@@ -119,8 +119,8 @@ function setupPagesManager() {
         AppState.styleSelect.addEventListener('change', () => {
             const currentStyle = AppState.styleSelect.value;
             AppState.canvas.classList.remove(
-                'style-modern', 'style-classic', 'style-minimal', 
-                'style-creative', 'style-executive', 'style-emerald', 
+                'style-modern', 'style-classic', 'style-minimal',
+                'style-creative', 'style-executive', 'style-emerald',
                 'style-darktech', 'style-warm'
             );
             AppState.canvas.classList.add('style-' + currentStyle);

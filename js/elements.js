@@ -29,14 +29,14 @@ const elementTemplates = {
         const el = document.createElement('div');
         el.className = 'cv-element cv-experience';
         el.contentEditable = true;
-        el.innerHTML = '<strong>المسمّى الوظيفي</strong> - اسم الشركة<br><span style="color:#64748b; font-size:0.9em;">2021 - الحالي</span><p>وصف مختصر للإنجازات والمسؤوليات الرئيسية...</p>';
+        el.innerHTML = '<strong>المسمّى الوظيفي</strong> - اسم الشركة<br><span style="opacity:0.8; font-size:0.9em;">2021 - الحالي</span><p>وصف مختصر للإنجازات والمسؤوليات الرئيسية...</p>';
         return el;
     },
     education: () => {
         const el = document.createElement('div');
         el.className = 'cv-element cv-education';
         el.contentEditable = true;
-        el.innerHTML = '<strong>درجة البكالوريوس في التخصص</strong><br><span style="color:#64748b; font-size:0.9em;">اسم الجامعة | 2017 - 2021</span>';
+        el.innerHTML = '<strong>درجة البكالوريوس في التخصص</strong><br><span style="opacity:0.8; font-size:0.9em;">اسم الجامعة | 2017 - 2021</span>';
         return el;
     },
     skills: () => {
@@ -49,14 +49,15 @@ const elementTemplates = {
         const el = document.createElement('a');
         el.className = 'cv-element cv-link';
         el.contentEditable = true;
-        el.href = '#';
-        el.innerText = '🔗 رابط الموقع الشخصي / معرض الأعمال';
+        el.href = 'https://facebook.com';
+        el.target = '_blank';
+        el.innerText = 'رابط الموقع الشخصي / معرض الأعمال';
         return el;
     },
     image: () => {
         const el = document.createElement('img');
         el.className = 'cv-element cv-image';
-        el.src = 'https://via.placeholder.com/120';
+        el.src = 'images/profile.png';
         el.alt = 'الصورة الشخصية';
         return el;
     },
@@ -115,8 +116,15 @@ function createElement(type) {
             if (window.PropertiesManager) window.PropertiesManager.showEmptyProperties();
         }
         if (window.PagesManager) window.PagesManager.checkEmpty();
-        if (window.EventsManager) window.EventsManager.updateEventsDropdowns();
     });
+
+    if (type === 'link') {
+        element.addEventListener('click', (e) => {
+            if (!AppState.isPreviewMode) {
+                e.preventDefault();
+            }
+        });
+    }
 
     wrapper.addEventListener('click', (e) => {
         if (AppState.isPreviewMode) return;
@@ -161,6 +169,27 @@ function setupDraggableSidebarItems() {
         item.addEventListener('dragend', () => {
             item.classList.remove('dragging');
             AppState.draggedType = null;
+        });
+
+        item.addEventListener('click', () => {
+            if (AppState.isPreviewMode) return;
+            const type = item.dataset.type;
+            if (!type) return;
+
+            const activePage = document.querySelector('.cv-page.selected-page') || document.querySelector('.cv-page');
+            if (!activePage) return;
+
+            const pageBody = activePage.querySelector('.page-body') || activePage;
+            const emptyState = pageBody.querySelector('.empty-state');
+            if (emptyState) emptyState.remove();
+
+            const newWrapper = createElement(type);
+            pageBody.appendChild(newWrapper);
+
+            document.querySelectorAll('.cv-element-wrapper').forEach(w => w.classList.remove('selected'));
+            newWrapper.classList.add('selected');
+            AppState.selectedWrapper = newWrapper;
+            if (window.PropertiesManager) window.PropertiesManager.showProperties(newWrapper);
         });
     });
 }

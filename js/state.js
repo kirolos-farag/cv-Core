@@ -38,10 +38,8 @@ const AppState = {
         this.propertiesPanel = document.getElementById('properties-panel');
         this.propContent = document.getElementById('prop-content');
         this.layoutSelect = document.getElementById('layout-select');
-        this.styleSelect = document.getElementById('style-select');
         this.previewBtn = document.getElementById('preview-btn');
         this.exportPdfBtn = document.getElementById('export-pdf-btn');
-        this.exportBtn = document.getElementById('export-btn');
         this.clearBtn = document.getElementById('clear-btn');
         this.addPageBtn = document.getElementById('add-page-btn');
 

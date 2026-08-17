@@ -165,6 +165,11 @@ function applyEventRule(rule) {
             targetEl.style.fontSize = rule.value;
         } else if (rule.effect === 'color') {
             targetEl.style.color = rule.value;
+            targetEl.querySelectorAll('*').forEach(child => {
+                if (!child.classList.contains('cv-skill-tag')) {
+                    child.style.color = 'inherit';
+                }
+            });
         } else if (rule.effect === 'backgroundColor') {
             targetEl.style.backgroundColor = rule.value;
         }

@@ -10,41 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. تفعيل وحدات الموديولات المختلفة
     if (window.ElementsManager) window.ElementsManager.setupDraggableSidebarItems();
     if (window.PagesManager) window.PagesManager.setupPagesManager();
-    if (window.EventsManager) window.EventsManager.setupEventsManager();
     if (window.ExportManager) window.ExportManager.setupExportManager();
-
-    // 3. إدارة التبويبات في الشريط الجانبي (العناصر / التفاعلات)
-    const tabElementsBtn = document.getElementById('tab-elements-btn');
-    const tabEventsBtn = document.getElementById('tab-events-btn');
-    
-    const tabElementsContent = document.getElementById('tab-elements-content');
-    const tabEventsContent = document.getElementById('tab-events-content');
-
-    if (tabElementsBtn && tabEventsBtn) {
-        tabElementsBtn.addEventListener('click', () => {
-            tabElementsBtn.classList.add('active');
-            tabEventsBtn.classList.remove('active');
-            tabElementsContent.classList.add('active');
-            tabEventsContent.classList.remove('active');
-        });
-
-        tabEventsBtn.addEventListener('click', () => {
-            tabEventsBtn.classList.add('active');
-            tabElementsBtn.classList.remove('active');
-            tabEventsContent.classList.add('active');
-            tabElementsContent.classList.remove('active');
-
-            if (window.EventsManager) window.EventsManager.updateEventsDropdowns();
-        });
-    }
-
 
     // 4. وضع المعاينة (Preview Mode Toggle)
     if (AppState.previewBtn) {
         AppState.previewBtn.addEventListener('click', () => {
             AppState.isPreviewMode = !AppState.isPreviewMode;
             document.body.classList.toggle('preview-mode', AppState.isPreviewMode);
-            AppState.previewBtn.innerText = AppState.isPreviewMode ? '✏️ وضع التعديل' : '👁️ وضع المعاينة';
+            AppState.previewBtn.innerText = AppState.isPreviewMode ? 'وضع التعديل' : 'وضع المعاينة';
             AppState.previewBtn.classList.toggle('btn-primary', AppState.isPreviewMode);
             AppState.previewBtn.classList.toggle('btn-secondary', !AppState.isPreviewMode);
 
@@ -56,10 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. مسح جميع العناصر والصفحات والتفاعلات
+    // 5. مسح جميع العناصر والصفحات
     if (AppState.clearBtn) {
         AppState.clearBtn.addEventListener('click', () => {
-            if (confirm('⚠️ هل أنت متأكد من مسح جميع العناصر والصفحات والتفاعلات؟')) {
+            if (confirm('هل أنت متأكد من مسح جميع العناصر والصفحات؟')) {
                 AppState.canvas.innerHTML = `
                     <div class="cv-page" data-page="1">
                         <div class="page-number-badge">صفحة 1</div>
@@ -72,24 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <line x1="16" y1="17" x2="8" y2="17" />
                                     <polyline points="10 9 9 9 8 9" />
                                 </svg>
-                                <h3>اسحب العناصر هنا</h3>
-                                <p>ابدأ بسحب العناصر من الشريط الجانبي لبناء سيرتك الذاتية</p>
+                                <h3>اسحب أو انقر على العناصر للإضافة</h3>
+                                <p>ابدأ بسحب أو النقر على العناصر من الشريط الجانبي لبناء سيرتك الذاتية</p>
                             </div>
                         </div>
                     </div>`;
 
                 AppState.pageCounter = 1;
                 AppState.elementUniqueId = 0;
-                AppState.eventsRules = [];
                 AppState.selectedWrapper = null;
 
                 const firstPage = AppState.canvas.querySelector('.cv-page');
                 if (window.PagesManager) window.PagesManager.setupPageDragAndDrop(firstPage);
                 if (window.PropertiesManager) window.PropertiesManager.showEmptyProperties();
-                if (window.EventsManager) {
-                    window.EventsManager.renderEventsRulesList();
-                    window.EventsManager.updateEventsDropdowns();
-                }
             }
         });
     }

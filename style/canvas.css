@@ -49,22 +49,54 @@
     transition: all 0.2s;
 }
 
+.page-split-band.pos-right {
+    right: 0;
+    left: auto;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+}
+
 .page-split-band.pos-left {
     right: auto;
     left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
 }
 
 .page-split-band.pos-top {
-    left: 0;
-    right: 0;
-    bottom: auto;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: auto !important;
+    width: 100% !important;
     height: 180px;
-    width: 100%;
 }
 
-.page-split-band.band-w-25 { width: 25%; }
-.page-split-band.band-w-33 { width: 33%; }
-.page-split-band.band-w-50 { width: 50%; }
+.page-split-band.pos-bottom {
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 140px;
+}
+
+/* الأبعاد للشريط الجانبي (عرض) وللشريط العلوي/السفلي (ارتفاع) */
+.page-split-band.pos-right.band-w-25,
+.page-split-band.pos-left.band-w-25 { width: 25%; }
+.page-split-band.pos-right.band-w-33,
+.page-split-band.pos-left.band-w-33 { width: 33%; }
+.page-split-band.pos-right.band-w-50,
+.page-split-band.pos-left.band-w-50 { width: 50%; }
+
+.page-split-band.pos-top.band-w-25,
+.page-split-band.pos-bottom.band-w-25 { height: 120px; width: 100% !important; }
+.page-split-band.pos-top.band-w-33,
+.page-split-band.pos-bottom.band-w-33 { height: 180px; width: 100% !important; }
+.page-split-band.pos-top.band-w-50,
+.page-split-band.pos-bottom.band-w-50 { height: 260px; width: 100% !important; }
 
 
 /* جسم الصفحة المرن للهياكل المختلفة */
@@ -214,18 +246,86 @@
 
 .preview-mode .cv-element { cursor: default !important; }
 
-/* قواعد الطباعة لـ PDF */
+/* قواعد الطباعة لـ PDF والتصدير المتطابق */
 @media print {
-    body { background: #fff !important; padding: 0 !important; overflow: visible !important; }
-    .sidebar, .toolbar, .properties-panel, .page-controls, .page-number-badge, .page-remove-btn, .element-actions {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    html, body, .app {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    .sidebar, 
+    .toolbar, 
+    .properties-panel, 
+    .page-controls, 
+    .page-number-badge, 
+    .page-remove-btn, 
+    .element-actions,
+    .empty-state {
         display: none !important;
     }
+
     .workspace, .canvas-area {
-        padding: 0 !important; background: #fff !important; overflow: visible !important; display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        overflow: visible !important;
+        display: block !important;
+        height: auto !important;
     }
-    #cv-canvas { max-width: 100% !important; gap: 0 !important; }
+
+    #cv-canvas {
+        max-width: 100% !important;
+        width: 100% !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     .cv-page {
-        box-shadow: none !important; border-radius: 0 !important; padding: 40px !important;
-        page-break-after: always !important; min-height: 100vh !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 44px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        min-height: 100vh !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .page-split-band {
+        display: block !important;
+        z-index: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .cv-element-wrapper {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .cv-element {
+        cursor: default !important;
     }
 }

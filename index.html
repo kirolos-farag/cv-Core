@@ -8,25 +8,28 @@
     <!-- استدعاء خطوط Google Fonts العربية والأجنبية الممتازة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&family=Tajawal:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <base target="_blank">
 </head>
 
 <body>
     <div class="app">
-        <!-- الشريط الجانبي الرئيسي مع تبويبات العناصر والتفاعلات -->
+        <!-- الشريط الجانبي الرئيسي مع عناصر السيرة الذاتية -->
         <aside class="sidebar">
-            <div class="sidebar-tabs">
-                <button class="sidebar-tab active" id="tab-elements-btn">🧩 عناصر CV</button>
-                <button class="sidebar-tab" id="tab-events-btn">⚡ التفاعلات والأحداث</button>
+            <div class="sidebar-header"
+                style="padding: 16px 14px 10px 14px; border-bottom: 1px solid #e2e8f0; margin-bottom: 10px;">
+                <h3 style="margin: 0; font-size: 15px; color: #ffffff;">عناصر السيرة الذاتية</h3>
             </div>
 
-            <!-- تبويب عناصر السيرة الذاتية -->
+            <!-- قائمة عناصر السيرة الذاتية -->
             <div class="tab-content active" id="tab-elements-content">
                 <div class="draggable-item" draggable="true" data-type="header">
                     <svg viewBox="0 0 24 24">
-                        <path d="M4 12h16M4 6h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12h16M4 6h16M4 18h10" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
                     </svg>
                     <div class="item-info">
                         <span class="item-title">عنوان رئيسي (H1)</span>
@@ -36,7 +39,8 @@
 
                 <div class="draggable-item" draggable="true" data-type="section">
                     <svg viewBox="0 0 24 24">
-                        <path d="M4 6h16M4 12h10M4 18h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 6h16M4 12h10M4 18h14" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
                     </svg>
                     <div class="item-info">
                         <span class="item-title">عنوان قسم (H2)</span>
@@ -46,7 +50,8 @@
 
                 <div class="draggable-item" draggable="true" data-type="text">
                     <svg viewBox="0 0 24 24">
-                        <path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
                     </svg>
                     <div class="item-info">
                         <span class="item-title">نص عادي (فقرة)</span>
@@ -56,11 +61,12 @@
 
                 <div class="draggable-item" draggable="true" data-type="divider">
                     <svg viewBox="0 0 24 24">
-                        <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-dasharray="4 2" />
+                        <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"
+                            stroke-dasharray="4 2" />
                         <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" />
                     </svg>
                     <div class="item-info">
-                        <span class="item-title">📏 خط فاصل أنيق (Divider)</span>
+                        <span class="item-title">خط فاصل أنيق</span>
                         <span class="item-desc">خط فاصل أفقي أو عمودي ملون لتقسيم الصفحة</span>
                     </div>
                 </div>
@@ -78,7 +84,8 @@
 
                 <div class="draggable-item" draggable="true" data-type="education">
                     <svg viewBox="0 0 24 24">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
                         <path d="M6 12v5c0 2 6 3 6 3s6-1 6-3v-5" stroke="currentColor" stroke-width="2" />
                     </svg>
                     <div class="item-info">
@@ -89,7 +96,9 @@
 
                 <div class="draggable-item" draggable="true" data-type="skills">
                     <svg viewBox="0 0 24 24">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="currentColor" stroke-width="2" />
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                            stroke="currentColor" stroke-width="2" />
                     </svg>
                     <div class="item-info">
                         <span class="item-title">قائمة مهارات (Tags)</span>
@@ -99,8 +108,10 @@
 
                 <div class="draggable-item" draggable="true" data-type="link">
                     <svg viewBox="0 0 24 24">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" />
                     </svg>
                     <div class="item-info">
                         <span class="item-title">رابط خارجي</span>
@@ -120,75 +131,16 @@
                     </div>
                 </div>
             </div>
-
-            <!-- تبويب منشئ التفاعلات والأحداث البرمجية البصرية -->
-            <div class="tab-content" id="tab-events-content">
-                <div class="event-builder-container">
-                    <p class="events-help">⚡ قم بربط العناصر بتفاعلات حية دون الحاجة لكتابة كود! اختر الحدث المحفز والتأثير البصري المباشر.</p>
-                    
-                    <div class="ev-form-group">
-                        <label>1. نوع الحدث (Trigger):</label>
-                        <select id="ev-trigger">
-                            <option value="click">عند الضغط (onClick)</option>
-                            <option value="mouseenter">عند مرور الماوس فوقه (onMouseEnter)</option>
-                            <option value="mouseleave">عند ابتعاد الماوس عنه (onMouseLeave)</option>
-                        </select>
-                    </div>
-
-                    <div class="ev-form-group">
-                        <label>2. العنصر المحفز (Source Element):</label>
-                        <select id="ev-source-select">
-                            <option value="">-- اختر العنصر المحفز --</option>
-                        </select>
-                    </div>
-
-                    <div class="ev-form-group">
-                        <label>3. العنصر المستهدف بالتغيير (Target Element):</label>
-                        <select id="ev-target-select">
-                            <option value="">-- اختر العنصر المستهدف --</option>
-                        </select>
-                    </div>
-
-                    <div class="ev-form-group">
-                        <label>4. التأثير البصري (Action):</label>
-                        <select id="ev-action-type">
-                            <option value="color">تغيير لون النص (Text Color)</option>
-                            <option value="bg">تغيير لون الخلفية (Background Color)</option>
-                            <option value="fontSize">تغيير حجم الخط (Font Size)</option>
-                            <option value="fontFamily">تغيير نوع الخط (Font Family)</option>
-                            <option value="width">تغيير العرض المرن (Flex Width)</option>
-                            <option value="toggleHide">إخفاء / إظهار العنصر (Show/Hide)</option>
-                        </select>
-                    </div>
-
-                    <div class="ev-form-group">
-                        <label>5. القيمة البصرية (Value):</label>
-                        <div id="ev-value-picker-container">
-                            <!-- سيتم توليد أداة الاختيار البصرية تلقائياً هنا حسب نوع التأثير -->
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-primary" id="add-event-rule-btn" style="width:100%; margin-top:8px;">➕ إضافة التفاعل</button>
-
-                    <div class="active-events-wrapper">
-                        <h4>📋 التفاعلات النشطة</h4>
-                        <div id="events-rules-list">
-                            <p class="no-events-text">لا توجد تفاعلات مضافة بعد</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </aside>
 
         <!-- منطقة العمل -->
         <main class="workspace">
             <div class="toolbar">
-                <h1>📝 محرر السيرة الذاتية الاحترافي</h1>
+                <h1>محرر السيرة الذاتية الاحترافي</h1>
                 <div class="toolbar-actions">
-                    <button class="btn btn-secondary" id="preview-btn">👁️ وضع المعاينة</button>
-                    <button class="btn btn-primary" id="export-pdf-btn" style="background:#0284c7;">📄 تصدير PDF</button>
-                    <button class="btn btn-primary" id="export-btn">💾 تصدير HTML</button>
-                    <button class="btn btn-danger" id="clear-btn">🗑️ مسح الكل</button>
+                    <button class="btn btn-secondary" id="preview-btn">وضع المعاينة</button>
+                    <button class="btn btn-primary" id="export-pdf-btn" style="background:#0284c7;">تصدير PDF</button>
+                    <button class="btn btn-danger" id="clear-btn">مسح الكل</button>
                 </div>
             </div>
 
@@ -205,23 +157,23 @@
                                     <line x1="16" y1="17" x2="8" y2="17" />
                                     <polyline points="10 9 9 9 8 9" />
                                 </svg>
-                                <h3>اسحب العناصر هنا</h3>
-                                <p>ابدأ بسحب العناصر من الشريط الجانبي لبناء سيرتك الذاتية</p>
+                                <h3>اسحب أو انقر على العناصر للإضافة</h3>
+                                <p>ابدأ بسحب أو النقر على العناصر من الشريط الجانبي لبناء سيرتك الذاتية</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="page-controls">
-                    <button id="add-page-btn" class="btn-add-page">➕ إضافة صفحة جديدة</button>
+                    <button id="add-page-btn" class="btn-add-page">إضافة صفحة جديدة</button>
                 </div>
             </div>
         </main>
 
         <!-- لوحة الخصائص المتقدمة الممتازة -->
         <aside class="properties-panel" id="properties-panel">
-            <h3>⚙️ خصائص العنصر</h3>
+            <h3>خصائص العنصر</h3>
             <div id="prop-content">
-                <!-- يتم ملء الخصائص ديناميكياً بوسطة JS -->
+                <!-- يتم ملء الخصائص ديناميكياً بواسطة JS -->
             </div>
         </aside>
     </div>
@@ -230,7 +182,6 @@
     <script src="js/state.js"></script>
     <script src="js/properties.js"></script>
     <script src="js/elements.js"></script>
-    <script src="js/events.js"></script>
     <script src="js/pages.js"></script>
     <script src="js/export.js"></script>
     <script src="js/main.js"></script>

@@ -32,6 +32,12 @@
     word-break: break-word;
 }
 
+.cv-link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .cv-element-wrapper:hover .element-actions,
 .cv-element-wrapper.selected .element-actions {
     opacity: 1;
@@ -91,32 +97,44 @@
 
 .cv-divider.dashed {
     background: none !important;
-    border-top: 2px dashed #cbd5e1;
+    border-top-width: 2px;
+    border-top-style: dashed;
+    border-top-color: inherit;
 }
 
 .cv-divider.vertical.dashed {
     border-top: none !important;
-    border-right: 2px dashed #cbd5e1;
+    border-right-width: 2px;
+    border-right-style: dashed;
+    border-right-color: inherit;
 }
 
 .cv-divider.dotted {
     background: none !important;
-    border-top: 2px dotted #cbd5e1;
+    border-top-width: 2px;
+    border-top-style: dotted;
+    border-top-color: inherit;
 }
 
 .cv-divider.vertical.dotted {
     border-top: none !important;
-    border-right: 2px dotted #cbd5e1;
+    border-right-width: 2px;
+    border-right-style: dotted;
+    border-right-color: inherit;
 }
 
 .cv-divider.double {
     background: none !important;
-    border-top: 4px double #cbd5e1;
+    border-top-width: 4px;
+    border-top-style: double;
+    border-top-color: inherit;
 }
 
 .cv-divider.vertical.double {
     border-top: none !important;
-    border-right: 4px double #cbd5e1;
+    border-right-width: 4px;
+    border-right-style: double;
+    border-right-color: inherit;
 }
 
 .cv-divider.gradient-line {
